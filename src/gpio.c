@@ -15,6 +15,17 @@ void config_GPIO(GPIO_TypeDef* port, uint8_t pin, GPIO_MODE_t mode, GPIO_PULL_t 
     port->PUPDR |= pull << (pin*2);         // Set pull register
 }
 
+void config_GPIO_af(GPIO_TypeDef* port, uint8_t pin, GPIO_PULL_t pull, uint8_t af){
+    reset_GPIO(port, pin);
+    port->MODER |= GPIO_alt_func << (pin*2);         // Set mode register
+    port->PUPDR |= pull << (pin*2);                  // Set pull register
+    if (pin < 8) {
+        port->AFR[0] |= ((af & 0b1111) << (pin*4));  // Set alternate function register
+    } else {
+        port->AFR[1] |= ((af & 0b1111) << (pin*4));  // Set alternate function register
+    }
+}
+
 // todo clock en/dis-able
 void enable_GPIO_clock(RCC_TypeDef* port){
     // todo: switch case

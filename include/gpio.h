@@ -36,6 +36,7 @@ typedef enum {
 /* Functions */
 void reset_GPIO(GPIO_TypeDef* port, uint8_t pin);
 void config_GPIO(GPIO_TypeDef* port, uint8_t pin, GPIO_MODE_t mode, GPIO_PULL_t pull);
+void config_GPIO_af(GPIO_TypeDef* port, uint8_t pin, GPIO_PULL_t pull, uint8_t af);
 
 void enable_GPIO_clock(RCC_TypeDef* port);                                              // todo research rcc ipv gpio
 void disable_GPIO_clock(RCC_TypeDef* port);                                             // todo research rcc ipv gpio
